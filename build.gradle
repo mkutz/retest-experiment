@@ -7,6 +7,14 @@ repositories {
     mavenCentral()
 }
 
+test {
+    outputs.upToDateWhen { false }
+    doFirst {
+        systemProperty "geb.env", System.getProperty("testcontainers") ? "chromeTestcontainers" : ""
+        systemProperty "geb.build.baseUrl", "https://demo.applitools.com/hackathon${System.getProperty("v2") ? "V2": ""}.html"
+    }
+}
+
 dependencies {
     testImplementation 'de.retest:recheck-web:1.6.0'
     testImplementation 'org.codehaus.groovy:groovy-all:2.5.8@pom'
